@@ -24,7 +24,7 @@ import grp3022.service.HospitalAdminService;
 import grp3022.util.Context;
 
 /**
- * @author 全琛
+ * @author 全琛gg
  *
  */
 @Namespace("/admin")
