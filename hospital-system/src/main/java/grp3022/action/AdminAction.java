@@ -24,8 +24,7 @@ import grp3022.service.HospitalAdminService;
 import grp3022.util.Context;
 
 /**
- * @author 全琛ggssssss
- *
+ * @author 全琛
  */
 @Namespace("/admin")
 public class AdminAction extends ActionSupport{
