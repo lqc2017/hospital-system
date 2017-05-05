@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+            http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context.xsd
+            http://www.springframework.org/schema/aop
+            http://www.springframework.org/schema/aop/spring-aop.xsd
+            http://www.springframework.org/schema/tx
+            http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	<!-- 使用 annotation -->
+	<context:annotation-config />
+   	<!-- 使用 annotation 自动注册bean,并检查@Controller, @Service, @Repository注解已被注入 --> 
+	<context:component-scan base-package="grp3022.*" />
+
+	<!-- 数据库配置 -->
+	<bean id="dataSource"
+		class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass"
+			value="oracle.jdbc.driver.OracleDriver">
+		</property>
+		<property name="jdbcUrl"
+			value="jdbc:oracle:thin:@localhost:1521:dbtest">
+		</property>
+		<property name="user" value="lys"></property>
+		<property name="password" value="lys"></property>
+	</bean>
+
+	<!-- sessionFactory -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.OracleDialect
+				</prop>
+				 <!--格式化输出sql语句-->    
+                <prop key="hibernate.show_sql">false</prop>    
+                 <prop key="hibernate.format_sql">true</prop>      
+                 <prop key="hibernate.use_sql_comments">false</prop>    
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+			</props>
+		</property>
+		<!-- 包扫描的方式加载注解类(推荐) -->
+		<property name="packagesToScan"  value="grp3022.bean" /> 
+	</bean>
+
+	<!-- 用注解来实现事务管理 -->    
+     <bean id="txManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">    
+         <property name="sessionFactory" ref="sessionFactory"></property>          
+     </bean>    
+     <tx:annotation-driven transaction-manager="txManager"/>
+</beans>

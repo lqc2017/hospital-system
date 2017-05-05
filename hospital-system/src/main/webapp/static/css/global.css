@@ -1,0 +1,20 @@
+div.operation {color:5px solid red;}
+
+div.operation > span.glyphicon-edit {color:#dfc3ad;cursor:pointer;margin:auto 5px;}
+
+div.operation > span.glyphicon-trash {color:#9c9c9c;cursor:pointer;margin:auto 5px;}
+
+.btn-default.btn-search {color:#52ad72;font-weight: 900;}
+
+.btn-default.btn-reset {font-weight: 900;}
+
+.Counter {
+    display: inline-block;
+    padding: 2px 5px;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1;
+    color: #fff;
+    background-color: #03afd6;
+    border-radius: 20px;
+}

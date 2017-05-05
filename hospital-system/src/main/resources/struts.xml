@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+
+	<!-- 开启使用开发模式，详细错误提示 -->
+	<!-- 开启使用开发模式，详细错误提示 -->
+	<constant name="struts.devMode" value="true" />
+	<!-- 将对象交给spring管理 -->
+	<constant name="struts.objectFactory" value="spring" />
+	<!-- 指定资源编码类型 -->
+	<constant name="struts.i18n.encoding" value="UTF-8" />
+	<!-- 指定每次请求到达，重新加载资源文件 -->
+	<constant name="struts.i18n.reload" value="false" />
+	<!-- 指定每次配置文件更改后，自动重新加载 -->
+	<constant name="struts.configuration.xml.reload" value="false" />
+	<!-- 静态文件 -->
+	<constant name="struts.action.excludePattern" value="/static/.*?" />
+	
+	<constant name="struts.action.extension" value=","/>
+
+<!-- 	<package name="common" extends="struts-default">
+		定义拦截器
+		<interceptors>
+			申明自定义的权限控制拦截器
+			<interceptor name="authorityInterceptor" class="grp3022.interceptor.AuthorizationInterceptor" />
+			把自定义的权限控制拦截器和默认的拦截器栈加到新的自定义的拦截器栈
+			<interceptor-stack name="myInterceptors">
+				<interceptor-ref name="logger" />
+				<interceptor-ref name="timer" />
+				<interceptor-ref name="authorityInterceptor" >
+					<param name="excludeMethods">login</param> 
+				</interceptor-ref>
+				<interceptor-ref name="defaultStack" />
+			</interceptor-stack>
+		</interceptors>
+		
+		<default-interceptor-ref name="myInterceptors"></default-interceptor-ref>
+		
+		<global-results>
+        	<result name="login" type="redirect">/login</result>
+        	<result name="noPrivilege">/dispatcher</result>
+    	</global-results>
+    	
+    	<action name="login" class="grp3022.action.LoginAction">
+			<result name="success">/login.jsp</result>
+		</action>
+	</package> -->
+	
+	<!-- <package name="json-common" extends="json-default">
+		<interceptors>
+			<interceptor name="authorityInterceptor" class="grp3022.interceptor.AuthorizationInterceptor" />
+			
+			<interceptor-stack name="myInterceptors">
+				<interceptor-ref name="authorityInterceptor" >
+					<param name="excludeMethods">login</param>
+				</interceptor-ref>
+				<interceptor-ref name="defaultStack" />
+			</interceptor-stack>
+		</interceptors>
+		
+		<default-interceptor-ref name="myInterceptors"></default-interceptor-ref>
+		
+		<global-results>
+        	<result name="login" type="redirect">/login</result>
+        	<result name="noPrivilege">/dispatcher</result>
+    	</global-results>
+	</package> -->
+
+</struts>
+

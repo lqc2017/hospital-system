@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/security
+	http://www.springframework.org/schema/security/spring-security.xsd">
+
+	<http auto-config="true">
+		<headers>
+	        <frame-options policy="SAMEORIGIN"/>
+	    </headers>
+	    
+	    <!-- PatientAction -->
+		<intercept-url access="hasRole('PATIENT')" pattern="/patient/**" />
+		
+		<!-- DoctorAction -->
+		<intercept-url access="hasRole('ADMIN')" pattern="/doctor/list" />
+		
+		<intercept-url access="hasRole('DOCTOR')" pattern="/doctor/**" />
+		
+		<!-- CashierAction -->
+		<intercept-url access="hasRole('ADMIN')" pattern="/cashier/list" />
+		
+		<intercept-url access="hasRole('CASHIER')" pattern="/cashier/**" />
+		
+		<!-- AdminAction -->
+		<intercept-url access="hasRole('ADMIN')" pattern="/admin/**" />
+		
+		<!-- HospitalizationAction -->
+		<intercept-url access="hasRole('DOCTOR') or hasRole('PATIENT')" pattern="/hospitalization/detail" />
+		
+		<intercept-url access="hasRole('PATIENT')" pattern="/hospitalization/patient_list" />
+		
+		<intercept-url access="hasRole('DOCTOR')" pattern="/hospitalization/**" />
+		
+		<!-- RecordAction -->
+		<intercept-url access="hasRole('DOCTOR') or hasRole('PATIENT')" pattern="/record/detail" />
+		
+		<intercept-url access="hasRole('PATIENT')" pattern="/record/patient_list" />
+		
+		<intercept-url access="hasRole('DOCTOR')" pattern="/record/**" />
+		
+		<!-- OrderAction -->
+		<intercept-url access="hasRole('CASHIER') or hasRole('PATIENT')" pattern="/order/price_list" />
+		
+		<intercept-url access="hasRole('PATIENT')" pattern="/order/patient_list" />
+		
+		<intercept-url access="hasRole('PATIENT')" pattern="/order/pay**" />
+		
+		<intercept-url access="hasRole('DOCTOR')" pattern="/order/add**" />
+		
+		<intercept-url access="hasRole('CASHIER')" pattern="/order/**" />
+		
+		<!-- MedicineAction -->
+		<intercept-url access="hasRole('DOCTOR')" pattern="/medicine/select" />
+		
+		<intercept-url access="hasRole('DOCTOR')" pattern="/medicine/change_table" />
+		
+		<intercept-url access="hasRole('ADMIN')" pattern="/medicine/**" />
+		
+		<!-- ProjectAction -->
+		<intercept-url access="hasRole('DOCTOR')" pattern="/project/select" />
+		
+		<intercept-url access="hasRole('DOCTOR')" pattern="/project/change_table" />
+		
+		<intercept-url access="hasRole('ADMIN')" pattern="/project/**" />
+		
+		<!-- PrescriptionAction -->
+		<intercept-url access="hasRole('DOCTOR')" pattern="/prescription/**" />
+		
+		<!-- ProjectCheckAction -->
+		<intercept-url access="hasRole('DOCTOR')" pattern="/project_check/**" />
+		
+		<session-management invalid-session-url="/login?timeout"/>
+		
+		<form-login authentication-failure-url="/login?error"
+			authentication-success-handler-ref="loginSuccessHandler" login-page="/login"
+			password-parameter="password" username-parameter="ssoId" />
+
+		<csrf></csrf>
+	</http>
+
+
+	<authentication-manager>
+		<authentication-provider user-service-ref="AuthorityService">
+		
+		</authentication-provider>
+	</authentication-manager>
+
+	<beans:bean name="AuthorityService" class="grp3022.service.AuthorityServiceImpl"></beans:bean>
+
+	<beans:bean class="grp3022.configuration.LoginSuccessHandler"
+		id="loginSuccessHandler">
+	</beans:bean>
+</beans:beans>
